@@ -35,11 +35,11 @@ public class TodoService {
         return repository.findByUserId(entity.getUserId());
     }
 
-    public List<TodoEntity> retrieve(final String userId){
+    public List<TodoEntity> retrieve(final String userId) {
         return repository.findByUserId(userId);
     }
 
-    public List<TodoEntity> update(final TodoEntity entity){
+    public List<TodoEntity> update(final TodoEntity entity) {
         // (1) 저장할 엔티티가 유효한지 확인한다. 이 메서드는 2.3.1 Create Todo에서 구현했다.
         validate(entity);
 
@@ -58,14 +58,15 @@ public class TodoService {
         // 2.3.2 Retrieve Todo에서 만든 메서드를 이용해 사용자의 모든 Todo 리스트를 리턴한다.
         return retrieve(entity.getUserId());
     }
+
     public List<TodoEntity> delete(final TodoEntity entity) {
         // (1) 저장할 엔티티가 유효한지 확인한다. 이 메서드는 2.3.1 Create Todo에서 구현했다.
         validate(entity);
 
-        try{
+        try {
             // (2) 엔티티를 삭제한다.
             repository.delete(entity);
-        } catch (Exception e){
+        } catch (Exception e) {
             // (3) exception 발생 시 id와 exception을 로깅한다.
             log.error("error deleting entity ", entity.getId(), e);
 
@@ -76,7 +77,7 @@ public class TodoService {
         return retrieve(entity.getUserId());
     }
 
-    private void validate(final TodoEntity entity){
+    private void validate(final TodoEntity entity) {
         if (entity == null) {
             log.warn("Entity cannot be null.");
             throw new RuntimeException("Entity cannot be null.");

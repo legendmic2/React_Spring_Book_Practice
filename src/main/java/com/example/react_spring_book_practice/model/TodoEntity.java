@@ -20,7 +20,7 @@ import javax.persistence.Table;
 public class TodoEntity {
     @Id
     @GeneratedValue(generator = "system-uuid") // object를 DB에 저장할 때 id를 자동으로 생성하겠다
-    @GenericGenerator(name="system-uuid", strategy = "uuid2")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     private String id; // 이 오브젝트의 아이디
     private String userId; // 이 오브젝트를 생성한 사용자의 아이디
     private String title; // Todo 타이틀(예: 운동하기)

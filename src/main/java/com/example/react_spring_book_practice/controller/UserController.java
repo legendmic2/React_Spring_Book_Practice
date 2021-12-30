@@ -33,8 +33,8 @@ public class UserController {
             UserEntity registeredUser = userService.create(user);
             UserDTO responseUserDTO = UserDTO.builder()
                     .email(registeredUser.getEmail())
+                    .id(registeredUser.getId())
                     .username(registeredUser.getUsername())
-                    .password(registeredUser.getPassword())
                     .build();
 
             return ResponseEntity.ok().body(responseUserDTO);

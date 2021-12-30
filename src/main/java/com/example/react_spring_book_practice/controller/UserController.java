@@ -3,6 +3,7 @@ package com.example.react_spring_book_practice.controller;
 import com.example.react_spring_book_practice.dto.ResponseDTO;
 import com.example.react_spring_book_practice.dto.UserDTO;
 import com.example.react_spring_book_practice.model.UserEntity;
+import com.example.react_spring_book_practice.security.TokenProvider;
 import com.example.react_spring_book_practice.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TokenProvider tokenProvider;
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO) {
@@ -54,9 +58,12 @@ public class UserController {
         );
 
         if(user != null) {
+            // 토큰 생성
+            final String token = tokenProvider.create(user);
             final UserDTO responseUserDTO = UserDTO.builder()
-                    .email(user.getUsername())
+                    .email(user.getEmail())
                     .id(user.getId())
+                    .token(token)
                     .build();
             return ResponseEntity.ok().body(responseUserDTO);
         } else {
